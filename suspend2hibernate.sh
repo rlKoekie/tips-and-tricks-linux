@@ -44,7 +44,12 @@
 ### USER DEFINED SECTION ###
 # how long to suspend before hibernating to disk, in seconds
 suspendlength=10800
+logfile=/tmp/suspend2hibernate.log
 ### END USER DEFINED SECTION ###
+
+# pipe all output to logfile
+exec 3>&1 4>&2 
+exec >> "$logfile" 2>&1
 
 ### some utility functions ###
 lidclosed () {
@@ -151,3 +156,5 @@ else
 	exit
 fi
 
+# end of piping output to logfile
+exec 1>&3 2>&4
